@@ -87,3 +87,21 @@ input,textarea{width:100%;padding:8px;border-radius:6px;border:1px solid #ddd}
   .hero-inner{ text-align:center }
   .hero-ctas{ justify-content:center }
 }
+.logo-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-left: 10px;
+}
+
+.logo-img {
+  height: 55px;
+  width: 55px;
+  object-fit: contain;
+}
+
+.logo-title {
+  font-size: 32px;
+  font-weight: 700;
+  color: #1b421c;
+}
