@@ -89,12 +89,9 @@ input,textarea{width:100%;padding:8px;border-radius:6px;border:1px solid #ddd}
 }
 /* Center the logo + title */
 .logo-wrap {
-  display: flex;
-  align-items: center;
-  justify-content: center;   /* Center horizontally */
-  gap: 12px;
-  padding: 20px 0;           /* Add spacing around header */
-  width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
 
 .logo-img {
@@ -116,13 +113,17 @@ header, .header, .logo-wrap {
     justify-content: center;  /* horizontal center */
     align-items: center;       /* vertical center */
 }
-/* Premium Header Shadow */
+/* PREMIUM CLEAN HEADER */
 .logo-header {
     width: 100%;
     background: #ffffff;
-    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.12);  /* soft premium shadow */
-    padding: 20px 0;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.10);
+    padding: 10px 0;       /* reduced padding */
+    display: flex;
+    justify-content: center;
+    align-items: center;
     position: sticky;
     top: 0;
-    z-index: 999;
+    z-index: 1000;
 }
+
