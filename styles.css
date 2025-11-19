@@ -110,3 +110,9 @@ input,textarea{width:100%;padding:8px;border-radius:6px;border:1px solid #ddd}
   margin: 0;                 /* Remove unwanted spacing */
   text-align: center;
 }
+header, .header, .logo-wrap {
+    width: 100%;
+    display: flex;
+    justify-content: center;  /* horizontal center */
+    align-items: center;       /* vertical center */
+}
