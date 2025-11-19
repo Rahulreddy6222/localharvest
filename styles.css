@@ -98,8 +98,8 @@ input,textarea{width:100%;padding:8px;border-radius:6px;border:1px solid #ddd}
 }
 
 .logo-img {
-  height: 55px;
-  width: 55px;
+  height: 90px;
+  width: auto;
   object-fit: contain;
 }
 
