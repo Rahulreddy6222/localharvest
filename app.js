@@ -209,3 +209,12 @@ $('#checkout-form').addEventListener('submit', e=>{
   saveCart()
   e.target.reset()
 })
+// Smooth scroll to products when clicking Shop now in the hero
+document.addEventListener('click', e => {
+  if (e.target && e.target.id === 'shop-now') {
+    const prod = document.querySelector('#products')
+    if (prod) {
+      prod.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }
+  }
+})
