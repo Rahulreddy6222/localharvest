@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>LocalHarvest — Home</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <h1>LocalHarvest</h1>
+    <button id="cart-btn">Cart (<span id="cart-count">0</span>)</button>
+  </header>
+
+  <main>
+    <section id="products" class="products-grid"></section>
+  </main>
+
+  <div id="cart-modal" class="modal hidden">
+    <div class="modal-content">
+      <button class="close-btn" id="close-cart">×</button>
+      <h2>Your Cart</h2>
+      <div id="cart-items"></div>
+      <div id="cart-summary"></div>
+      <button id="checkout-btn">Checkout</button>
+    </div>
+  </div>
+
+  <div id="checkout-modal" class="modal hidden">
+    <div class="modal-content">
+      <button class="close-btn" id="close-checkout">×</button>
+      <h2>Checkout</h2>
+      <form id="checkout-form">
+        <label>
+          Full name
+          <input required name="name" />
+        </label>
+        <label>
+          Phone
+          <input required name="phone" />
+        </label>
+        <label>
+          Address
+          <textarea required name="address"></textarea>
+        </label>
+        <button type="submit">Place order (Mock)</button>
+      </form>
+      <div id="order-result" class="hidden"></div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
