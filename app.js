@@ -7,7 +7,7 @@ const products = [
   {
     id: 'p1',
     title: 'Fresh Mirchi',
-    img: '/mnt/data/A_QR_code_consists_of_black_and_white_square_modul.png',
+    img: 'https://raw.githubusercontent.com/Rahulreddy6222/localharvest/main/images/mirchi.jpg',
     alt: 'Fresh Mirchi',
     variants: [
       { key: '250g', label: '250 g', price: 25 },
@@ -18,7 +18,7 @@ const products = [
   {
     id: 'p2',
     title: 'Turmeric Powder',
-    img: '/mnt/data/A_QR_code_consists_of_black_and_white_square_modul.png',
+    img: 'https://raw.githubusercontent.com/Rahulreddy6222/localharvest/main/images/turmeric.jpg',
     alt: 'Turmeric Powder',
     variants: [
       { key: '250g', label: '250 g', price: 70 },
@@ -29,7 +29,7 @@ const products = [
   {
     id: 'p3',
     title: 'Organic Honey',
-    img: '/mnt/data/A_QR_code_consists_of_black_and_white_square_modul.png',
+    img: 'https://raw.githubusercontent.com/Rahulreddy6222/localharvest/main/images/honey.jpg',
     alt: 'Organic Honey',
     variants: [
       { key: '250g', label: '250 g', price: 250 },
