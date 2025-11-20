@@ -1,0 +1,403 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>LocalHarvest — Products</title>
+
+  <link rel="stylesheet" href="styles.css">
+
+  <style>
+    /* ---------- Reset & container ---------- */
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: "Segoe UI", Roboto, Arial, sans-serif; background:#f2f2f1; color:#222; }
+    .container { max-width:1200px; margin:0 auto; padding:24px; }
+
+    /* ---------- header ---------- */
+    header.hero {
+      background: #ffffff;
+      padding: 20px 0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:18px;
+      border-bottom: 1px solid rgba(0,0,0,0.04);
+    }
+    header.hero img.logo { height:72px; width:72px; object-fit:contain; border-radius:6px; }
+    header.hero h1 { margin:0; color:#1f4d2f; font-size:34px; font-weight:800; }
+
+    /* ---------- toolbar (category switches) ---------- */
+    .products-toolbar {
+      max-width:1100px;
+      margin: 20px auto;
+      padding: 0 16px;
+      display:flex;
+      gap:10px;
+      align-items:center;
+      flex-wrap:wrap;
+    }
+    .category-filter-btn {
+      padding:8px 12px;
+      border-radius:8px;
+      border:1px solid rgba(0,0,0,0.08);
+      background:#fff;
+      cursor:pointer;
+      font-weight:600;
+    }
+    .category-filter-btn.active {
+      background:#2f7a4a;
+      color:#fff;
+      border-color:transparent;
+    }
+
+    /* ---------- section title ---------- */
+    .section-title {
+      font-size:28px;
+      color:#153a25;
+      text-align:left;
+      margin:10px 0 18px;
+      font-weight:700;
+    }
+
+    /* ---------- grid ---------- */
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 16px 40px;
+    }
+
+    /* ---------- card ---------- */
+    .product-card {
+      background: #fff;
+      border-radius: 14px;
+      padding: 12px;
+      box-shadow: 0 10px 28px rgba(16,24,32,0.06);
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      transition: transform .16s ease, box-shadow .16s ease;
+    }
+    .product-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 18px 40px rgba(16,24,32,0.09);
+    }
+
+    .product-card img {
+      width:100%;
+      height:150px;
+      object-fit:cover;
+      border-radius:10px;
+      display:block;
+    }
+
+    .product-title {
+      margin:0;
+      font-size:18px;
+      color:#153a25;
+      font-weight:700;
+    }
+
+    .product-desc {
+      font-size:13.5px;
+      color:#555;
+      margin:6px 0;
+      min-height:44px;
+    }
+
+    .product-meta {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      margin-top:auto;
+    }
+    .price { color:#1f7a4a; font-weight:700; }
+    .qty { font-size:13px; color:#666; }
+    .btn {
+      font-size:14px;
+      padding:8px 12px;
+      border-radius:8px;
+      border:none;
+      cursor:pointer;
+    }
+    .add-btn { background:#2f7a4a; color:#fff; }
+    .view-btn { background:transparent; color:#2f7a4a; border:1px solid rgba(47,122,74,0.12); }
+
+    /* small responsive tweaks */
+    @media (max-width:420px) {
+      header.hero h1 { font-size:22px; }
+      .product-card img { height:130px; }
+    }
+
+    /* cart badge (simple visual) */
+    .cart-bar {
+      position:fixed;
+      right:18px;
+      bottom:18px;
+      background:#2f7a4a;
+      color:white;
+      padding:10px 14px;
+      border-radius:30px;
+      box-shadow:0 8px 22px rgba(0,0,0,0.15);
+      display:flex;
+      gap:10px;
+      align-items:center;
+      z-index:9999;
+      cursor:pointer;
+    }
+    .cart-count { background:rgba(255,255,255,0.12); padding:6px 8px; border-radius:999px; font-weight:700; }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="hero">
+    <!-- you can replace this src with images/logo.png if preferred -->
+    <img class="logo" src="/mnt/data/Screenshot 2025-11-20 103618.png" alt="LocalHarvest logo">
+    <h1>LocalHarvest — Products</h1>
+  </header>
+
+  <!-- Toolbar: category buttons (users can switch here) -->
+  <div class="products-toolbar" role="toolbar" aria-label="Filter products by category">
+    <button class="category-filter-btn" data-cat="">All</button>
+    <button class="category-filter-btn" data-cat="fruits">Fruits</button>
+    <button class="category-filter-btn" data-cat="vegetables">Vegetables</button>
+    <button class="category-filter-btn" data-cat="grains">Grains &amp; Pulses</button>
+    <button class="category-filter-btn" data-cat="masalas">Masalas</button>
+  </div>
+
+  <!-- Products -->
+  <main class="container" id="productsMain">
+    <h2 class="section-title">Available (priced per kg)</h2>
+
+    <!-- Grid - will be populated by JS -->
+    <div id="productsGrid" class="products-grid"></div>
+  </main>
+
+  <!-- Simple cart button -->
+  <div id="cartBar" class="cart-bar" title="View cart">
+    Cart <span id="cartCount" class="cart-count">0</span>
+  </div>
+
+  <!-- PRODUCTS + FILTER SCRIPT -->
+  <script>
+    /* ---------- Products array (with categories) ---------- 
+       category values: "fruits", "vegetables", "grains", "masalas"
+       Ensure the images referenced exist in your images/ folder.
+    */
+    const products = [
+      { id: 1,  title: "Rice",               category: "grains",      pricePerKg: "₹50 / kg",  img: "images/rice.jpg",        desc: "Cleaned & milled rice — premium farm grain." },
+      { id: 2,  title: "Maize",              category: "grains",      pricePerKg: "₹30 / kg",  img: "images/maize.jpg",       desc: "Fresh dry maize kernels — multipurpose." },
+
+      /* Fruits */
+      { id: 3,  title: "Mango (Seasonal)",   category: "fruits",      pricePerKg: "₹120 / kg", img: "images/mango.jpg",       desc: "Sweet seasonal mangoes — handpicked for ripeness." },
+      { id: 4,  title: "Lemons",             category: "fruits",      pricePerKg: "₹60 / kg",  img: "images/lemons.jpg",      desc: "Fresh lemons — tangy and juicy." },
+      { id: 5,  title: "Guava",              category: "fruits",      pricePerKg: "₹70 / kg",  img: "images/guava.jpg",       desc: "Soft and fragrant guavas." },
+
+      /* Vegetables */
+      { id: 6,  title: "Tomato",             category: "vegetables", pricePerKg: "₹45 / kg",  img: "images/tomato.jpg",      desc: "Red and juicy tomatoes." },
+      { id: 7,  title: "Coriander Leaves",   category: "vegetables", pricePerKg: "₹80 / kg",  img: "images/coriander.jpg",   desc: "Fresh coriander — aromatic." },
+      { id: 8,  title: "Brinjal (Eggplant)", category: "vegetables", pricePerKg: "₹40 / kg",  img: "images/brinjal.jpg",     desc: "Firm and shiny brinjals." },
+      { id: 9,  title: "Lady's Finger",      category: "vegetables", pricePerKg: "₹50 / kg",  img: "images/ladysfinger.jpg", desc: "Crisp lady's finger." },
+      { id:10,  title: "Green Mirchi",       category: "vegetables", pricePerKg: "₹120 / kg",img: "images/greenmirchi.jpg", desc: "Spicy green mirchi." },
+
+      /* Pulses / nuts */
+      { id:11,  title: "Green Moong Dal",    category: "grains",      pricePerKg: "₹110 / kg", img: "images/moongdal.jpg",    desc: "Healthy green moong dal." },
+      { id:12,  title: "Black Urad Dal",     category: "grains",      pricePerKg: "₹140 / kg", img: "images/uraddal.jpg",     desc: "Premium black urad dal." },
+      { id:13,  title: "Ground Nut",         category: "grains",      pricePerKg: "₹130 / kg", img: "images/groundnut.jpg",   desc: "Fresh groundnut kernels." },
+      { id:14,  title: "Organic Sesame",     category: "grains",      pricePerKg: "₹220 / kg", img: "images/sesame.jpg",      desc: "Organic sesame seeds." },
+
+      /* Masalas */
+      { id:15,  title: "Turmeric Powder",    category: "masalas",     pricePerKg: "₹180 / kg", img: "images/turmeric.jpg",    desc: "Fresh organic turmeric powder." },
+      { id:16,  title: "Mirchi Powder",      category: "masalas",     pricePerKg: "₹200 / kg", img: "images/mirchi.jpg",      desc: "Rich red chilli powder." }
+    ];
+
+    /* ---------- CART (localStorage) ---------- */
+    const CART_KEY = 'localHarvestCart_v1';
+    function getCart(){ return JSON.parse(localStorage.getItem(CART_KEY) || '[]'); }
+    function saveCart(arr){ localStorage.setItem(CART_KEY, JSON.stringify(arr)); }
+    function addToCart(productId, qtyKg = 1){
+      const cart = getCart();
+      const existing = cart.find(i=>i.id===productId);
+      if(existing) existing.qty = parseFloat((existing.qty + qtyKg).toFixed(2));
+      else cart.push({ id: productId, qty: qtyKg });
+      saveCart(cart);
+      updateCartCount();
+    }
+    function updateCartCount(){
+      const cart = getCart();
+      const totalItems = cart.reduce((s,i)=>s + (Number(i.qty) || 0), 0);
+      document.getElementById('cartCount').textContent = totalItems;
+    }
+
+    /* ---------- Rendering ---------- */
+    const grid = document.getElementById('productsGrid');
+
+    function createCard(p){
+      const art = document.createElement('article');
+      art.className = 'product-card';
+      art.dataset.category = p.category;
+
+      // image with fallback
+      const img = document.createElement('img');
+      img.alt = p.title;
+      img.src = p.img;
+      img.onerror = function(){ this.src = 'images/placeholder.jpg'; };
+
+      // title
+      const h3 = document.createElement('h3');
+      h3.className = 'product-title';
+      h3.textContent = p.title;
+
+      // desc
+      const desc = document.createElement('p');
+      desc.className = 'product-desc';
+      desc.textContent = p.desc;
+
+      // meta row
+      const meta = document.createElement('div');
+      meta.className = 'product-meta';
+
+      const left = document.createElement('div');
+      const priceSpan = document.createElement('div');
+      priceSpan.className = 'price';
+      priceSpan.textContent = p.pricePerKg;
+      const qtySpan = document.createElement('div');
+      qtySpan.className = 'qty';
+      qtySpan.textContent = "Sold per kg";
+      left.appendChild(priceSpan);
+      left.appendChild(qtySpan);
+
+      const right = document.createElement('div');
+      right.style.display = 'flex';
+      right.style.alignItems = 'center';
+      right.style.gap = '8px';
+
+      const qtyInput = document.createElement('input');
+      qtyInput.type = 'number';
+      qtyInput.min = '0.1';
+      qtyInput.step = '0.1';
+      qtyInput.value = '1';
+      qtyInput.style.width = '64px';
+      qtyInput.style.padding = '6px 8px';
+      qtyInput.style.borderRadius = '8px';
+      qtyInput.style.border = '1px solid rgba(0,0,0,0.08)';
+
+      const addBtn = document.createElement('button');
+      addBtn.className = 'btn add-btn';
+      addBtn.textContent = 'Add to cart';
+      addBtn.addEventListener('click', () => {
+        const wanted = parseFloat(qtyInput.value) || 1;
+        addToCart(p.id, wanted);
+        alert(`${p.title} (${wanted} kg) added to cart`);
+      });
+
+      right.appendChild(qtyInput);
+      right.appendChild(addBtn);
+
+      meta.appendChild(left);
+      meta.appendChild(right);
+
+      // assemble
+      art.appendChild(img);
+      art.appendChild(h3);
+      art.appendChild(desc);
+      art.appendChild(meta);
+
+      return art;
+    }
+
+    function renderProducts(filterCategory = null){
+      if (!grid) return;
+      grid.innerHTML = '';
+      const filtered = filterCategory ? products.filter(p => p.category === filterCategory) : products;
+
+      if (filtered.length === 0) {
+        const msg = document.createElement('p');
+        msg.textContent = 'No products in this category yet.';
+        msg.style.padding = '24px';
+        grid.appendChild(msg);
+        return;
+      }
+
+      filtered.forEach(p => grid.appendChild(createCard(p)));
+    }
+
+    /* ---------- Category toolbar behavior ---------- */
+    function setActiveCategoryButton(cat) {
+      document.querySelectorAll('.category-filter-btn').forEach(btn => {
+        const bc = btn.dataset.cat || '';
+        if (bc === (cat || '')) btn.classList.add('active');
+        else btn.classList.remove('active');
+      });
+    }
+
+    // toolbar click handler
+    document.addEventListener('click', (e) => {
+      const btn = e.target.closest('.category-filter-btn');
+      if (!btn) return;
+      const cat = btn.dataset.cat || '';
+      if (cat) {
+        history.pushState(null, '', `#${cat}`);
+        renderProducts(cat);
+        setActiveCategoryButton(cat);
+        // smooth scroll to top of products
+        document.getElementById('productsMain').scrollIntoView({ behavior: 'smooth' });
+      } else {
+        history.pushState(null, '', window.location.pathname);
+        renderProducts(null);
+        setActiveCategoryButton('');
+        document.getElementById('productsMain').scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+
+    /* ---------- Hash handling for direct links (e.g. from homepage) ---------- */
+    function applyCategoryFromHash() {
+      const hash = (location.hash || '').replace('#','').trim();
+      if (hash) {
+        renderProducts(hash);
+        setActiveCategoryButton(hash);
+      } else {
+        renderProducts(null);
+        setActiveCategoryButton('');
+      }
+    }
+    window.addEventListener('hashchange', applyCategoryFromHash);
+
+    /* ---------- Initial load ---------- */
+    window.addEventListener('DOMContentLoaded', () => {
+      updateCartCount();
+      applyCategoryFromHash(); // render filtered view if hash present
+
+      // if no hash, render all
+      if (!location.hash) renderProducts(null);
+
+      // Smooth scroll if URL has a hash for the products page (rare here, but keep)
+      if (location.hash) {
+        const el = document.querySelector(location.hash);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+
+    // Cart bar click -> show simple cart details
+    document.getElementById('cartBar').addEventListener('click', () => {
+      const cart = getCart();
+      if(!cart.length){ alert('Cart is empty'); return; }
+      let msg = 'Cart contents:\\n';
+      cart.forEach(item=> {
+        const prod = products.find(p=>p.id===item.id);
+        const title = prod ? prod.title : ('Product ' + item.id);
+        msg += `• ${title} — ${item.qty} kg\\n`;
+      });
+      msg += '\\n(Use site checkout to complete purchase)';
+      alert(msg);
+    });
+
+    console.log('Products script loaded.');
+  </script>
+
+</body>
+</html>
