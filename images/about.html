@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>About — LocalHarvest</title>
+  <style>
+    :root{
+      --green: #1f4d2f;
+      --accent:#ff8a1f; /* warm orange */
+      --muted:#faf7f2;
+      --card:#fff;
+      --max-width:1200px;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:"Segoe UI",Roboto,Arial; background:var(--muted); color:#2f2f2f;-webkit-font-smoothing:antialiased}
+    a{color:inherit;text-decoration:none}
+
+    /* header */
+    .site-header{
+      background:#fff;border-bottom:1px solid rgba(0,0,0,0.06);
+      padding:16px 20px; display:flex; align-items:center; gap:14px;
+    }
+    .site-header .logo { width:64px; height:64px; object-fit:cover; border-radius:8px; }
+    .site-header h1{ margin:0; font-size:24px; color:var(--green); font-weight:800; margin-left:8px; }
+
+    .nav { margin-left:auto; display:flex; gap:18px; align-items:center; font-weight:700; color:var(--green) }
+    .nav a:hover{ color:var(--accent) }
+
+    .page { max-width:var(--max-width); margin:28px auto; padding:0 20px 60px; }
+
+    /* hero split */
+    .hero { display:grid; grid-template-columns: 1fr 1fr; gap:18px; align-items:stretch; }
+    .photo { border-radius:12px; overflow:hidden; box-shadow:0 10px 30px rgba(16,24,32,0.06); background:#eee; }
+    .photo img { width:100%; height:100%; object-fit:cover; display:block; min-height:380px; }
+
+    .about-panel { background: linear-gradient(180deg,#ff8a1f,#ff7a00); color:white; border-radius:12px; padding:36px; display:flex; flex-direction:column; justify-content:center; box-shadow:0 10px 30px rgba(16,24,32,0.06); }
+    .about-panel h2 { margin:0 0 10px; font-size:40px; line-height:1; font-weight:900; text-shadow:0 2px 0 rgba(0,0,0,0.06) }
+    .about-panel p { margin:14px 0 0; font-size:18px; line-height:1.7; max-width:100%; opacity:0.95 }
+
+    .content { margin-top:28px; display:grid; grid-template-columns: 1fr 320px; gap:24px; }
+    .content .main { background:var(--card); padding:20px; border-radius:10px; box-shadow:0 8px 20px rgba(16,24,32,0.05) }
+    .content .aside { background:var(--card); padding:20px; border-radius:10px; box-shadow:0 8px 20px rgba(16,24,32,0.05) }
+
+    @media (max-width:900px){ .hero{ grid-template-columns:1fr; } .photo img { min-height:260px; } .about-panel h2 { font-size:30px; text-align:center } .about-panel p { text-align:center } .content{ grid-template-columns:1fr; } }
+
+    .muted { color: rgba(0,0,0,0.6) }
+    .lead { font-size:18px; line-height:1.6; color:#2c2c2c }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <img class="logo" src="images/logo.png" alt="LocalHarvest logo"
+         onerror="this.onerror=null; this.src='/mnt/data/Screenshot 2025-11-21 121106.png'">
+    <h1>LocalHarvest</h1>
+    <nav class="nav" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="products.html">Products</a>
+      <a href="contact.html">Contact Us</a>
+    </nav>
+  </header>
+
+  <main class="page">
+    <section class="hero">
+      <div class="photo">
+        <img src="images/about.jpg" alt="About LocalHarvest"
+             onerror="this.onerror=null; this.src='/mnt/data/Screenshot 2025-11-21 121106.png'">
+      </div>
+
+      <div class="about-panel" role="region" aria-labelledby="about-title">
+        <h2 id="about-title">About Us</h2>
+        <p><strong>Welcome to LocalHarvest!</strong> I am Ettedi Rahul Adithya Reddy and I am extremely passionate about healthy living and sustainable food practices. I am committed to making a positive impact on the world through our business. Thank you for choosing our organic food products — we look forward to serving you soon.</p>
+      </div>
+    </section>
+
+    <section class="content">
+      <article class="main">
+        <h3 style="margin-top:0">Our Story</h3>
+        <p class="lead">LocalHarvest began with a simple idea — to bring transparent, farm-fresh produce from local growers directly to your table. We work closely with small farmers, avoid harmful chemicals, and focus on sustainable farming methods that protect soil and community livelihoods.</p>
+
+        <h4>What we do</h4>
+        <ul>
+          <li>Handpicked seasonal fruits & vegetables</li>
+          <li>Farm-sourced grains, pulses & nuts</li>
+          <li>Cold-pressed oils and traditional masalas</li>
+          <li>Packaging with minimal environmental impact</li>
+        </ul>
+
+        <h4>Our promise</h4>
+        <p class="muted">Quality, transparency and fair pricing. We test and verify our produce, and we ensure growers receive fair value for their harvests.</p>
+      </article>
+
+      <aside class="aside">
+        <div style="font-weight:700; margin-bottom:10px">Founder</div>
+        <div style="background:#fff;padding:12px;border-radius:8px;box-shadow:0 8px 18px rgba(16,24,32,0.06)">
+          <strong>Rahul Reddy</strong><br>
+          Founder & CEO<br>
+          <small class="muted">Local farmer partner & organic advocate</small>
+        </div>
+
+        <div style="margin-top:18px">
+          <div style="font-weight:700; margin-bottom:8px">Contact</div>
+          <div style="background:#fff;padding:12px;border-radius:8px;box-shadow:0 8px 18px rgba(16,24,32,0.06)">
+            <div style="font-weight:700;color:var(--accent)">+91 8790033934</div>
+            <div class="muted">localharvest@gmail.com</div>
+          </div>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+</body>
+</html>
