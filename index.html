@@ -4,8 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>LocalHarvest — Home</title>
-
-  <link rel="stylesheet" href="styles.css?v=5">
+  <link rel="stylesheet" href="styles.css?v=6">
 
   <style>
     body { margin:0; font-family: "Segoe UI", Roboto, Arial, sans-serif; color:#1f2f23; }
@@ -14,11 +13,13 @@
     .logo-img { width:72px; height:72px; object-fit:contain; border-radius:6px; }
     .logo-title { margin:0; font-size:28px; color:#163a26; font-weight:800; }
 
-    .main-nav { background:#fff; padding:10px 0; border-bottom:1px solid rgba(0,0,0,0.04); }
+    /* Navigation */
+    .main-nav { background:#fff; padding:12px 0; border-bottom:1px solid rgba(0,0,0,0.04); }
     .main-nav ul { list-style:none; margin:0; padding:0; display:flex; justify-content:center; gap:36px; }
     .main-nav a { color:#1f4d2f; text-decoration:none; font-weight:600; font-size:16px; padding:6px 0; }
     .main-nav a:hover { color:#2f7a4a; border-bottom:2px solid #2f7a4a; padding-bottom:4px; }
 
+    /* Hero */
     .hero {
       background-image: url("/mnt/data/Screenshot 2025-11-20 103618.png");
       background-size: cover;
@@ -42,6 +43,7 @@
     .btn.shop { background:#2f7a4a; color:#fff; }
     .btn.ghost { background:transparent; color:#2f7a4a; border:1px solid rgba(47,122,74,0.12); }
 
+    /* Categories */
     .categories-inner { display:flex; justify-content:center; gap:24px; padding:26px 0; flex-wrap:wrap; }
     .cat { text-align:center; text-decoration:none; }
     .cat-thumb img { width:120px; height:120px; border-radius:50%; object-fit:cover; box-shadow:0 6px 18px rgba(0,0,0,0.08); }
@@ -54,7 +56,6 @@
       .logo-img{width:56px;height:56px;}
       .hero h2 { font-size:26px; }
       .hero-overlay { text-align:center; }
-      .main-nav ul { gap:18px; flex-wrap:wrap; }
       .cat-thumb img { width:100px; height:100px; }
     }
   </style>
@@ -77,14 +78,11 @@
     </div>
   </header>
 
-  <!-- Navigation -->
+  <!-- NEW Navigation: Only Home | About | Contact -->
   <nav class="main-nav" role="navigation">
     <ul>
-      <li><a href="products.html#fruits">Fruits</a></li>
-      <li><a href="products.html#vegetables">Vegetables</a></li>
-      <li><a href="products.html#grains">Grains & Pulses</a></li>
-      <li><a href="products.html#masalas">Masalas</a></li>
-      <li><a href="about.html">About Us</a></li>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="#about">About Us</a></li>
       <li><a href="contact.html">Contact Us</a></li>
     </ul>
   </nav>
@@ -116,7 +114,7 @@
     </div>
   </section>
 
-  <!-- Hero Section -->
+  <!-- Hero -->
   <section class="hero">
     <div class="hero-overlay">
       <h2>Fresh, Organic & Locally Grown</h2>
@@ -128,32 +126,30 @@
       </div>
     </div>
   </section>
-<!-- ABOUT SECTION (insert this BELOW the hero section) -->
+
+<!-- ABOUT SECTION -->
 <section id="about" class="about-section" aria-label="About LocalHarvest">
   <div class="about-inner">
     <div class="about-photo">
-      <!-- Use project image if available, fallback to the uploaded screenshot -->
       <img src="images/about.jpg"
-           alt="Founder photo"
            onerror="this.onerror=null; this.src='/mnt/data/Screenshot 2025-11-21 121106.png'">
     </div>
 
     <div class="about-text">
       <h2>About Us</h2>
-      <p class="lead"><strong>Welcome to LocalHarvest!</strong> I am Adithya Reddy — passionate about healthy living and sustainable food practices. We work with small farmers to bring fresh, organic produce to your table while supporting fair, sustainable farming.</p>
+      <p class="lead"><strong>Welcome to LocalHarvest!</strong> I am Adithya Reddy — passionate about healthy living and sustainable food practices.</p>
 
-      <p>Our promise: transparent sourcing, quality produce and fair pricing. We deliver fruits, vegetables, grains, pulses and masalas with minimal packaging and maximum care.</p>
+      <p>We bring fresh fruits, vegetables, grains, dals and masalas directly from sustainable local farms — clean, organic and chemical-free.</p>
 
       <div class="founder">
         <strong>Founder</strong>
-        <div>Adithya — Founder &amp; CEO</div>
+        <div>Adithya Reddy — Founder & CEO</div>
         <div class="muted">Phone: +91 8790033934</div>
-        <div class="muted">mail: localharvest@gmail.com</div>
+        <div class="muted">Email: localharvest@gmail.com</div>
       </div>
     </div>
   </div>
 </section>
-<!-- END ABOUT SECTION -->
 
   <main>
     <p style="font-weight:600;color:#2f7a4a;">Click "Shop now" to view all products — fruits, vegetables, grains & masalas.</p>
@@ -166,10 +162,7 @@
   <script src="app.js"></script>
 
   <script>
-    (function(){
-      const y = document.getElementById('year');
-      if(y) y.textContent = new Date().getFullYear();
-    })();
+    document.getElementById('year').textContent = new Date().getFullYear();
   </script>
 
 </body>
