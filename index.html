@@ -5,13 +5,9 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>LocalHarvest — Home</title>
 
-  <!-- your main stylesheet -->
   <link rel="stylesheet" href="styles.css?v=5">
-  <li><a href="contact.html">Contact Us</a></li>
-
 
   <style>
-    /* small inline styles to ensure layout looks correct until styles.css loads */
     body { margin:0; font-family: "Segoe UI", Roboto, Arial, sans-serif; color:#1f2f23; }
     .site-header { display:flex; align-items:center; gap:18px; padding:18px 24px; background:#fff; border-bottom:1px solid rgba(0,0,0,0.04); }
     .logo-wrap { display:flex; align-items:center; gap:14px; }
@@ -46,27 +42,34 @@
     .btn.shop { background:#2f7a4a; color:#fff; }
     .btn.ghost { background:transparent; color:#2f7a4a; border:1px solid rgba(47,122,74,0.12); }
 
-    /* small utilities */
+    .categories-inner { display:flex; justify-content:center; gap:24px; padding:26px 0; flex-wrap:wrap; }
+    .cat { text-align:center; text-decoration:none; }
+    .cat-thumb img { width:120px; height:120px; border-radius:50%; object-fit:cover; box-shadow:0 6px 18px rgba(0,0,0,0.08); }
+    .cat-label { margin-top:8px; font-weight:700; color:#12321f; font-size:16px; }
+
     main { max-width:1100px; margin:36px auto; padding:0 16px; }
     footer { text-align:center; padding:20px 12px; color:#587a5a; border-top:1px solid rgba(0,0,0,0.04); }
+
     @media (max-width:600px){
-      .hero h2 { font-size:26px; text-align:center; }
+      .logo-img{width:56px;height:56px;}
+      .hero h2 { font-size:26px; }
       .hero-overlay { text-align:center; }
       .main-nav ul { gap:18px; flex-wrap:wrap; }
+      .cat-thumb img { width:100px; height:100px; }
     }
   </style>
 </head>
+
 <body>
+
   <!-- Header -->
   <header class="site-header">
     <div class="logo-wrap">
-      <!-- try project logo first, fallback to your uploaded screenshot if missing -->
-      <img class="logo-img" src="images/logo.png" alt="LocalHarvest Logo"
+      <img class="logo-img" src="images/logo.png"
            onerror="this.onerror=null; this.src='/mnt/data/Screenshot 2025-11-20 103618.png'">
       <h1 class="logo-title">LocalHarvest</h1>
     </div>
 
-    <!-- cart button (kept on the right) -->
     <div style="margin-left:auto;">
       <button id="cart-btn" style="background:#2f7a4a;color:#fff;border:none;padding:8px 12px;border-radius:8px;cursor:pointer;">
         Cart (<span id="cart-count">0</span>)
@@ -75,97 +78,98 @@
   </header>
 
   <!-- Navigation -->
-  <nav class="main-nav" role="navigation" aria-label="Main navigation">
+  <nav class="main-nav" role="navigation">
     <ul>
-      <!-- these links point to the products page sections -->
-      
-      
+      <li><a href="products.html#fruits">Fruits</a></li>
+      <li><a href="products.html#vegetables">Vegetables</a></li>
+      <li><a href="products.html#grains">Grains & Pulses</a></li>
+      <li><a href="products.html#masalas">Masalas</a></li>
+      <li><a href="about.html">About Us</a></li>
+      <li><a href="contact.html">Contact Us</a></li>
     </ul>
   </nav>
-<!-- Category tiles -->
-<section class="categories" aria-label="Shop by category">
-  <div class="container categories-inner">
-    <a class="cat" href="products.html#fruits" title="Fruits">
-      <div class="cat-thumb">
-        <!-- using your uploaded file as a quick test for Fruits -->
-        <img src="images/fruits.jpg" alt="Fruits">
-      </div>
-      <div class="cat-label">Fruits</div>
-    </a>
 
-    <a class="cat" href="products.html#vegetables" title="Vegetables">
-      <div class="cat-thumb">
-        <img src="images/vegetables.jpg" alt="Vegetables">
-      </div>
-      <div class="cat-label">Vegetables</div>
-    </a>
+  <!-- Categories -->
+  <section class="categories">
+    <div class="container categories-inner">
 
-    <a class="cat" href="products.html#grains" title="Grains &amp; Pulses">
-      <div class="cat-thumb">
-        <img src="images/grains.jpg" alt="Grains and Pulses">
-      </div>
-      <div class="cat-label">Grains &amp; Pulses</div>
-    </a>
+      <a class="cat" href="products.html#fruits">
+        <div class="cat-thumb"><img src="images/fruits.jpg"></div>
+        <div class="cat-label">Fruits</div>
+      </a>
 
-    <a class="cat" href="products.html#masalas" title="Masalas">
-      <div class="cat-thumb">
-        <img src="images/masalas.jpg" alt="Masalas">
-      </div>
-      <div class="cat-label">Masalas</div>
-    </a>
+      <a class="cat" href="products.html#vegetables">
+        <div class="cat-thumb"><img src="images/vegetables.jpg"></div>
+        <div class="cat-label">Vegetables</div>
+      </a>
 
-  </div>
-</section>
+      <a class="cat" href="products.html#grains">
+        <div class="cat-thumb"><img src="images/grains.jpg"></div>
+        <div class="cat-label">Grains & Pulses</div>
+      </a>
 
-  <!-- HERO -->
-  <section class="hero" role="banner" aria-label="Hero banner">
-    <div class="hero-overlay">
-      <div class="hero-inner">
-        <h2>Fresh, Organic &amp; Locally Grown</h2>
-        <p>Farm-fresh mirchi, turmeric, honey — delivered straight from the farm to your home.</p>
+      <a class="cat" href="products.html#masalas">
+        <div class="cat-thumb"><img src="images/masalas.jpg"></div>
+        <div class="cat-label">Masalas</div>
+      </a>
 
-        <div class="hero-ctas">
-          <!-- Correct, reliable anchor that navigates to products.html -->
-          <a href="products.html" class="btn shop">Shop now</a>
-
-          <!-- Contact - email link -->
-          <a class="btn ghost" href="mailto:localharvest@gmail.com?subject=LocalHarvest%20inquiry">Contact Us</a>
-        </div>
-      </div>
     </div>
   </section>
 
-  <!-- Optional intro -->
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-overlay">
+      <h2>Fresh, Organic & Locally Grown</h2>
+      <p>Farm-fresh mirchi, turmeric, honey — delivered straight from the farm to your home.</p>
+
+      <div class="hero-ctas">
+        <a href="products.html" class="btn shop">Shop now</a>
+        <a class="btn ghost" href="mailto:localharvest@gmail.com">Contact Us</a>
+      </div>
+    </div>
+  </section>
+<!-- ABOUT SECTION (insert this BELOW the hero section) -->
+<section id="about" class="about-section" aria-label="About LocalHarvest">
+  <div class="about-inner">
+    <div class="about-photo">
+      <!-- Use project image if available, fallback to the uploaded screenshot -->
+      <img src="images/about.jpg"
+           alt="Founder photo"
+           onerror="this.onerror=null; this.src='/mnt/data/Screenshot 2025-11-21 121106.png'">
+    </div>
+
+    <div class="about-text">
+      <h2>About Us</h2>
+      <p class="lead"><strong>Welcome to LocalHarvest!</strong> I am Adithya Reddy — passionate about healthy living and sustainable food practices. We work with small farmers to bring fresh, organic produce to your table while supporting fair, sustainable farming.</p>
+
+      <p>Our promise: transparent sourcing, quality produce and fair pricing. We deliver fruits, vegetables, grains, pulses and masalas with minimal packaging and maximum care.</p>
+
+      <div class="founder">
+        <strong>Founder</strong>
+        <div>Adithya — Founder &amp; CEO</div>
+        <div class="muted">Phone: +91 8790033934</div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- END ABOUT SECTION -->
+
   <main>
-    <p style="font-weight:600;color:#2f7a4a;">Click "Shop now" to view all products — fruits, vegetables, grains &amp; masalas.</p>
+    <p style="font-weight:600;color:#2f7a4a;">Click "Shop now" to view all products — fruits, vegetables, grains & masalas.</p>
   </main>
 
-  <!-- Footer -->
   <footer>
     © <span id="year"></span> LocalHarvest — All rights reserved.
   </footer>
 
-  <!-- load your app script -->
   <script src="app.js"></script>
 
-  <!-- small inline fallback script -->
   <script>
-    // Footer year
-    (function(){ const y = document.getElementById('year'); if(y) y.textContent = new Date().getFullYear(); })();
-
-    // If user opened index via file:// and link navigation seems not to work in some browsers,
-    // this ensures clicking the "Shop now" anchor still navigates correctly.
-    document.addEventListener('click', function (e) {
-      const a = e.target.closest('a');
-      if (!a) return;
-      const href = a.getAttribute('href') || '';
-      // If it's a relative link to products.html, force navigation using window.location
-      if (href === 'products.html') {
-        // allow default if it's already going to navigate; but do explicit navigation as fallback
-        // (this won't break normal behavior)
-        window.location.href = href;
-      }
-    });
+    (function(){
+      const y = document.getElementById('year');
+      if(y) y.textContent = new Date().getFullYear();
+    })();
   </script>
+
 </body>
 </html>
